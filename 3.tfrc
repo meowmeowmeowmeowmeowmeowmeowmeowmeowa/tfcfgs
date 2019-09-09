@@ -1,0 +1,67 @@
+
+;;; This file should be named .tfrc in homedir, for tf5 to accept!
+
+;;; TF world-queue system, allows activity-notification, active worldlist
+/more off
+/load worldqueue.tf
+
+;;; Make the activity in world and world change notices coloured:
+/def -ahCgreen -hWORLD
+/def -ahbCgreen -hACTIVITY
+
+;more global histsize
+/histsize 16384
+;more histsize on all worlds
+/set histsize=16384
+
+;;clock
+/set status_int_clock=ftime("%H:%M", time())
+
+;;active worldlist on status_bar
+/status_add -B@clock active_worlds:40
+
+;;; Convenient commands/keys
+;;; /w command i.e. /w ha /w zp etc to switch worlds...
+/def w = /world %*
+;;;   ctrl+n = switch to first active world else previous world
+/bind ^n = /to_active_or_prev_world
+;;;   ctrl+j (linefeed -- sometimes ctrl+enter!) = switch to next world
+/bind ^j = /fg ->
+
+;;; Single default world to keep things happy default no connection etc.
+/addworld -T'lpp' nonexistant 127.0.0.1 0
+
+;;; Full list of world definitions. In most cases same format applies!
+;;; PASSWORD should be replaced where-available with your password on
+;;; the respective talker, to make automatic login work.
+
+/addworld -T'lpp' an Aryanyaa PASSWORD mudlib.anarres.org 5000
+/addworld -T'lpp' br nyaa pass brigandine.org 9390
+/addworld -T'lpp' bu Aryanyaa PASSWORD burbs.org 4567
+/addworld -T'lpp' ce Aryanyaa PASSWORD centralperk.us 2323
+/addworld -T'lpp' co Aryanyaa PASSWORD cotn.subnigra.com 6969
+/addworld -T'lpp' cu Aryanyaa PASSWORD culturalwasteland.tv 4000
+/addworld -T'lpp' ha Aryanyaa pass haven.enyc.org.uk 7777
+/addworld -T'lpp' nr Aryanyaa pass nre.encores.place 2100
+/addworld -T'lpp' mb Aryanyaa PASSWORD mba4.org 3214
+/addworld -T'lpp' pi Aryanyaa PASSWORD pit.enyc.org.uk 7422
+/addworld -T'lpp' rs Aryanyaa PASSWORD resort.org 2323
+/addworld -T'lpp' sc Aryanyaa PASSWORD scarlet-citadel.co.uk 2000
+/addworld -T'lpp' su Aryanyaa PASSWORD fysh.org 4242
+/addworld -T'lpp' ug Aryanyaa PASSWORD uglymug.org.uk 6239
+/addworld -T'lpp' zp Aryanyaa pass zthe-place.enyc.org.uk 8682
+
+;;; Macro to connect to Aryanyaa_worlds -- change to list of places with accounts.
+/def con = \
+    /connect ha %;\
+    /connect br %;\
+    /connect nr %;\
+    /connect zp
+
+;;; Notice the %;\ continuation between lines on all but the last.
+;;; This can become a longer-list as you res on talkers and you
+;;;   can just type /con to make sure you are connected to all
+;;;   your worlds.
+
+;;; lots of triggers, macros, etc. can be done, lots more learnable, above gives
+;;;   a good start to multi-world connection!
